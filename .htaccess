@@ -1,0 +1,36 @@
+ErrorDocument 404 https://%{HTTP_HOST}/404.php
+
+RewriteEngine On
+RewriteBase /
+
+RewriteCond %{REQUEST_URI} ^/404/$
+RewriteRule ^(.*)$ https://%{HTTP_HOST}/404.php [L]
+
+
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule (.*) HTTPS://%{HTTP_HOST}%{REQUEST_URI}
+
+#RewriteEngine On
+#RewriteCond %{HTTP_HOST} !^www\. [NC]
+#RewriteRule ^(.*)$ https://www.%{HTTP_HOST}/$1 [R=301,L]
+
+#RewriteEngine On
+
+# If the request has already been rewritten
+# Or maps to an existing file then stop here.
+# (Can't test for dir here since would not rewrite the doc root)
+#RewriteCond %{ENV:REDIRECT_STATUS} . [OR]
+#RewriteCond %{REQUEST_FILENAME} -f
+#RewriteRule ^ - [L]
+
+# No file extension on request then append .php and rewrite to subdir
+#RewriteCond %{REQUEST_URI} /(.+)
+
+
+
+#RewriteRule !\.[a-z0-4]{2,4}$ /hamilton/en/$1 [NC,L]
+
+
+# All remaining requests simply get rewritten to the subdir
+#RewriteRule (.*) /hamilton/en/$1 [L]
